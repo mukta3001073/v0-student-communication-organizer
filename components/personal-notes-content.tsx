@@ -1,10 +1,9 @@
 "use client"
 
 import React from "react"
-import { createClient as createBrowserClient } from "@/lib/supabase/client" // Import createBrowserClient here
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { createClient as createBrowserClient } from "@/lib/supabase/client" // Import createBrowserClient here
 import type { PersonalNote } from "@/lib/types"
 import { MobileNav } from "@/components/mobile-nav"
 import { Button } from "@/components/ui/button"
@@ -33,7 +32,7 @@ const NOTE_COLORS = [
 
 export function PersonalNotesContent({ notes: initialNotes }: PersonalNotesContentProps) {
   const router = useRouter()
-  const supabase = createBrowserClient() // Use createBrowserClient here
+  const supabase = createBrowserClient() // Updated to use createBrowserClient
   const [notes, setNotes] = useState(initialNotes)
   const [isOpen, setIsOpen] = useState(false)
   const [editingNote, setEditingNote] = useState<PersonalNote | null>(null)

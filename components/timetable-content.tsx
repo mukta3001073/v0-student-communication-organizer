@@ -1,9 +1,8 @@
 "use client"
 
 import React from "react"
-import { createClient as createBrowserClient } from "@/lib/supabase/client" // Import createBrowserClient here
-
 import { useState, useEffect } from "react"
+import { createClient } from "@/lib/supabase/client"
 import type { TimetableEvent } from "@/lib/types"
 import { MobileNav } from "@/components/mobile-nav"
 import { Button } from "@/components/ui/button"
@@ -44,7 +43,7 @@ const ALERT_OPTIONS = [
 ]
 
 export function TimetableContent({ events: initialEvents }: TimetableContentProps) {
-  const supabase = createBrowserClient()
+  const supabase = createClient()
   const [events, setEvents] = useState(initialEvents)
   const [isOpen, setIsOpen] = useState(false)
   const [editingEvent, setEditingEvent] = useState<TimetableEvent | null>(null)
