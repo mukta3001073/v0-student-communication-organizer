@@ -77,3 +77,30 @@ export interface PollVote {
   option_index: number
   created_at: string
 }
+
+export interface PersonalNote {
+  id: string
+  user_id: string
+  title: string
+  content: string
+  color: string
+  is_pinned: boolean
+  created_at: string
+  updated_at: string
+}
+
+export interface TimetableEvent {
+  id: string
+  user_id: string
+  title: string
+  description: string | null
+  day_of_week: number
+  start_time: string
+  end_time: string
+  location: string | null
+  color: string
+  alert_before: number
+  is_active: boolean
+  created_at: string
+  updated_at: string
+}

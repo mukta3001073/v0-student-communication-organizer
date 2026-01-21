@@ -7,7 +7,9 @@ import { StickyNoteCard } from "@/components/sticky-note-card"
 import { GroupCard } from "@/components/group-card"
 import { QuickActions } from "@/components/quick-actions"
 import { EmptyState } from "@/components/empty-state"
-import { Pin, Clock, Users } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { Pin, Clock, Users, StickyNote as StickyNoteIcon, Calendar, Calculator } from "lucide-react"
+import Link from "next/link"
 
 interface HomeContentProps {
   user: User
@@ -34,6 +36,43 @@ export function HomeContent({ user, profile, groups, pinnedNotes, recentNotes }:
       </header>
 
       <main className="flex-1 px-4 py-6">
+        {/* Quick Tools Section */}
+        <section className="mb-8">
+          <h2 className="font-semibold mb-4">Quick Tools</h2>
+          <div className="grid grid-cols-3 gap-3">
+            <Link href="/notes">
+              <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
+                <CardContent className="flex flex-col items-center justify-center p-4">
+                  <div className="h-10 w-10 rounded-full bg-yellow-100 flex items-center justify-center mb-2">
+                    <StickyNoteIcon className="h-5 w-5 text-yellow-600" />
+                  </div>
+                  <span className="text-xs font-medium text-center">Personal Notes</span>
+                </CardContent>
+              </Card>
+            </Link>
+            <Link href="/timetable">
+              <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
+                <CardContent className="flex flex-col items-center justify-center p-4">
+                  <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center mb-2">
+                    <Calendar className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <span className="text-xs font-medium text-center">Timetable</span>
+                </CardContent>
+              </Card>
+            </Link>
+            <Link href="/calculator">
+              <Card className="hover:bg-muted/50 transition-colors cursor-pointer">
+                <CardContent className="flex flex-col items-center justify-center p-4">
+                  <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center mb-2">
+                    <Calculator className="h-5 w-5 text-green-600" />
+                  </div>
+                  <span className="text-xs font-medium text-center">Calculator</span>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
+        </section>
+
         {/* Pinned Notes Section */}
         <section className="mb-8">
           <div className="mb-4 flex items-center gap-2">
