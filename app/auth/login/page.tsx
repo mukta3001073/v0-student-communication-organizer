@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Mail, Lock, ArrowRight, Loader2, BookOpen } from "lucide-react"
 import Link from "next/link"
+import { useEffect } from "react"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -19,39 +20,37 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
+  useEffect(() => {
+    const checkAuth = async () => {
+      const supabase = createClient()
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session) {
+        router.push("/home")
+      }
+    }
+    checkAuth()
+  }, [router])
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     setError(null)
 
     try {
-      console.log("[v0] Supabase URL:", process.env.NEXT_PUBLIC_SUPABASE_URL ? "✓ Set" : "✗ Missing")
-      console.log("[v0] Supabase Anon Key:", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? "✓ Set" : "✗ Missing")
-      
       const supabase = createClient()
-      console.log("[v0] Supabase client created")
       
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
+        options: {
+          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/home`,
+        },
       })
       
-      console.log("[v0] Auth response - Error:", error ? error.message : "Success")
-      
       if (error) throw error
-      console.log("[v0] Login successful, redirecting to /home")
       router.push("/home")
     } catch (error: unknown) {
-      console.error("[v0] Login error:", error)
-      let errorMessage = "Failed to sign in"
-      
-      if (error instanceof Error) {
-        errorMessage = error.message
-      } else if (error instanceof TypeError && error.message.includes("Failed to fetch")) {
-        errorMessage = "Network error. Please check your internet connection or contact support."
-      }
-      
-      setError(errorMessage)
+      setError(error instanceof Error ? error.message : "An error occurred")
     } finally {
       setIsLoading(false)
     }
