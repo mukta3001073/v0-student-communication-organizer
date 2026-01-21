@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { createClient as createBrowserClient } from "@/lib/supabase/client" // Import createBrowserClient here
 
 import { useState, useEffect } from "react"
 import type { TimetableEvent } from "@/lib/types"
@@ -14,7 +15,6 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Plus, Clock, MapPin, Bell, Edit, Trash2, MoreVertical, Calendar, ArrowLeft } from "lucide-react"
-import { createBrowserClient } from "@/lib/supabase/client"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 

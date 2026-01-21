@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import { createClient as createBrowserClient } from "@/lib/supabase/client" // Import createBrowserClient here
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -14,7 +15,6 @@ import { Label } from "@/components/ui/label"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { Plus, Pin, PinOff, Trash2, Edit, MoreVertical, StickyNote, ArrowLeft } from "lucide-react"
-import { createBrowserClient } from "@/lib/supabase/client"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
 
@@ -33,7 +33,7 @@ const NOTE_COLORS = [
 
 export function PersonalNotesContent({ notes: initialNotes }: PersonalNotesContentProps) {
   const router = useRouter()
-  const supabase = createBrowserClient()
+  const supabase = createBrowserClient() // Use createBrowserClient here
   const [notes, setNotes] = useState(initialNotes)
   const [isOpen, setIsOpen] = useState(false)
   const [editingNote, setEditingNote] = useState<PersonalNote | null>(null)
